@@ -1,0 +1,306 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Arxiv_Reader.gd" type="Script" id=1]
+
+[node name="Arxiv_Reader" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 1061.0
+margin_bottom = 653.0
+color = Color( 0.188235, 0.0901961, 0.0901961, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonList" type="VBoxContainer" parent="Background"]
+margin_left = 6.0
+margin_right = 123.0
+margin_bottom = 597.0
+size_flags_horizontal = 5
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ArxivHTree" type="Tree" parent="Background/ButtonList"]
+margin_right = 117.0
+margin_bottom = 179.0
+size_flags_vertical = 3
+hide_folding = true
+hide_root = true
+
+[node name="Open" type="Button" parent="Background/ButtonList"]
+margin_top = 183.0
+margin_right = 117.0
+margin_bottom = 203.0
+text = "Open Arxiv"
+
+[node name="OpenDatabase" type="Button" parent="Background/ButtonList"]
+margin_top = 207.0
+margin_right = 117.0
+margin_bottom = 227.0
+text = "Open Database"
+
+[node name="DirectAdd" type="Button" parent="Background/ButtonList"]
+margin_top = 231.0
+margin_right = 117.0
+margin_bottom = 251.0
+text = "Open Input"
+
+[node name="HS2" type="HSeparator" parent="Background/ButtonList"]
+margin_top = 255.0
+margin_right = 117.0
+margin_bottom = 259.0
+
+[node name="AddDatabase" type="Button" parent="Background/ButtonList"]
+margin_top = 263.0
+margin_right = 117.0
+margin_bottom = 283.0
+text = "Add to Database"
+
+[node name="HS1" type="HSeparator" parent="Background/ButtonList"]
+margin_top = 287.0
+margin_right = 117.0
+margin_bottom = 291.0
+
+[node name="filterLabel" type="Label" parent="Background/ButtonList"]
+margin_top = 295.0
+margin_right = 117.0
+margin_bottom = 309.0
+text = "Filters"
+align = 1
+
+[node name="FilterList" type="ItemList" parent="Background/ButtonList"]
+margin_top = 313.0
+margin_right = 117.0
+margin_bottom = 492.0
+size_flags_vertical = 3
+select_mode = 1
+
+[node name="DeleteFilter" type="Button" parent="Background/ButtonList"]
+margin_top = 496.0
+margin_right = 117.0
+margin_bottom = 516.0
+text = "Delete Selected"
+
+[node name="NewFilter" type="LineEdit" parent="Background/ButtonList"]
+margin_top = 520.0
+margin_right = 117.0
+margin_bottom = 544.0
+
+[node name="AddFilter" type="Button" parent="Background/ButtonList"]
+margin_top = 548.0
+margin_right = 117.0
+margin_bottom = 568.0
+text = "Add New Filter"
+
+[node name="filter" type="HBoxContainer" parent="Background/ButtonList"]
+margin_top = 572.0
+margin_right = 117.0
+margin_bottom = 596.0
+
+[node name="filterL" type="Label" parent="Background/ButtonList/filter"]
+margin_top = 5.0
+margin_right = 75.0
+margin_bottom = 19.0
+text = "Use Filters?"
+
+[node name="filterC" type="CheckBox" parent="Background/ButtonList/filter"]
+margin_left = 79.0
+margin_right = 103.0
+margin_bottom = 24.0
+
+[node name="ListOfTitles" type="ItemList" parent="Background"]
+margin_left = 146.595
+margin_top = 1.32425
+margin_right = 364.595
+margin_bottom = 598.324
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OutputContainer" type="VBoxContainer" parent="Background"]
+margin_left = 381.0
+margin_right = 1023.0
+margin_bottom = 597.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleRow" type="HBoxContainer" parent="Background/OutputContainer"]
+margin_right = 642.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+
+[node name="Title" type="Label" parent="Background/OutputContainer/TitleRow"]
+margin_top = 17.0
+margin_right = 28.0
+margin_bottom = 31.0
+text = "Title"
+
+[node name="TitleBox" type="TextEdit" parent="Background/OutputContainer/TitleRow"]
+margin_left = 32.0
+margin_right = 642.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+wrap_enabled = true
+
+[node name="LinkRow" type="HBoxContainer" parent="Background/OutputContainer"]
+margin_top = 52.0
+margin_right = 642.0
+margin_bottom = 76.0
+size_flags_horizontal = 3
+
+[node name="Link" type="Label" parent="Background/OutputContainer/LinkRow"]
+margin_top = 5.0
+margin_right = 26.0
+margin_bottom = 19.0
+text = "Link"
+
+[node name="LinkBox" type="LineEdit" parent="Background/OutputContainer/LinkRow"]
+margin_left = 30.0
+margin_right = 561.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="OpenLink" type="Button" parent="Background/OutputContainer/LinkRow"]
+margin_left = 565.0
+margin_right = 642.0
+margin_bottom = 24.0
+text = "Open Link"
+
+[node name="DescriptionBox" type="HBoxContainer" parent="Background/OutputContainer"]
+margin_top = 80.0
+margin_right = 642.0
+margin_bottom = 568.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Description" type="Label" parent="Background/OutputContainer/DescriptionBox"]
+margin_top = 237.0
+margin_right = 74.0
+margin_bottom = 251.0
+text = "Description"
+
+[node name="DescriptionBox" type="TextEdit" parent="Background/OutputContainer/DescriptionBox"]
+margin_left = 78.0
+margin_right = 642.0
+margin_bottom = 488.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+wrap_enabled = true
+
+[node name="CheckRow" type="HBoxContainer" parent="Background/OutputContainer"]
+margin_top = 572.0
+margin_right = 642.0
+margin_bottom = 596.0
+
+[node name="Save" type="Label" parent="Background/OutputContainer/CheckRow"]
+margin_top = 5.0
+margin_right = 117.0
+margin_bottom = 19.0
+text = "Save To Database?"
+
+[node name="CheckBox" type="CheckBox" parent="Background/OutputContainer/CheckRow"]
+margin_left = 121.0
+margin_right = 145.0
+margin_bottom = 24.0
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="arxivDirect" type="HTTPRequest" parent="."]
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+margin_left = 279.0
+margin_top = 78.0
+margin_right = 857.0
+margin_bottom = 291.0
+popup_exclusive = true
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="popupHolder" type="VBoxContainer" parent="PopupPanel"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 574.0
+margin_bottom = 209.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Toolbar" type="HBoxContainer" parent="PopupPanel/popupHolder"]
+margin_right = 570.0
+margin_bottom = 20.0
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Close" type="Button" parent="PopupPanel/popupHolder/Toolbar"]
+margin_left = 550.0
+margin_right = 570.0
+margin_bottom = 20.0
+text = "X"
+
+[node name="popupstuff" type="HBoxContainer" parent="PopupPanel/popupHolder"]
+margin_top = 24.0
+margin_right = 570.0
+margin_bottom = 181.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InputAsk" type="Label" parent="PopupPanel/popupHolder/popupstuff"]
+margin_top = 63.0
+margin_right = 115.0
+margin_bottom = 94.0
+text = "Input one arxiv ID
+per line"
+align = 1
+
+[node name="LineEdit" type="TextEdit" parent="PopupPanel/popupHolder/popupstuff"]
+margin_left = 119.0
+margin_right = 570.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+show_line_numbers = true
+wrap_enabled = true
+
+[node name="popupInput" type="Button" parent="PopupPanel/popupHolder"]
+margin_left = 256.0
+margin_top = 185.0
+margin_right = 313.0
+margin_bottom = 205.0
+size_flags_horizontal = 4
+text = "Submit"
+[connection signal="item_selected" from="Background/ButtonList/ArxivHTree" to="." method="_on_ArxivHTree_item_selected"]
+[connection signal="button_up" from="Background/ButtonList/Open" to="." method="_on_Open_button_up"]
+[connection signal="button_up" from="Background/ButtonList/OpenDatabase" to="." method="_on_OpenDatabase_button_up"]
+[connection signal="button_up" from="Background/ButtonList/DirectAdd" to="." method="_on_DirectAdd_button_up"]
+[connection signal="button_up" from="Background/ButtonList/AddDatabase" to="." method="_on_AddDatabase_button_up"]
+[connection signal="button_up" from="Background/ButtonList/DeleteFilter" to="." method="_on_DeleteFilter_button_up"]
+[connection signal="button_up" from="Background/ButtonList/AddFilter" to="." method="_on_AddFilter_button_up"]
+[connection signal="item_selected" from="Background/ListOfTitles" to="." method="_on_ListOfTitles_item_selected"]
+[connection signal="button_up" from="Background/OutputContainer/LinkRow/OpenLink" to="." method="_on_OpenLink_button_up"]
+[connection signal="toggled" from="Background/OutputContainer/CheckRow/CheckBox" to="." method="_on_CheckBox_toggled"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
+[connection signal="request_completed" from="arxivDirect" to="." method="_on_arxivDirect_request_completed"]
+[connection signal="button_up" from="PopupPanel/popupHolder/Toolbar/Close" to="." method="_on_Close_button_up"]
+[connection signal="button_up" from="PopupPanel/popupHolder/popupInput" to="." method="_on_popupInput_button_up"]
