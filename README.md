@@ -1,5 +1,5 @@
 # Arxiv RSS Manager
-An rss arxiv reader created using Godot, which allows one to build up a database of [arxiv articles](https://arxiv.org/); now with added support for ADS (https://ui.adsabs.harvard.edu/) entries.
+An rss arxiv reader created using Godot, which allows one to build up a database of [arxiv articles](https://arxiv.org/); now with added support for [ADS](https://ui.adsabs.harvard.edu/) entries.
 
 ### ADS Warning
 It will get stuck in an infinite loop if it either can't find a bibcode or you do not input bibcodes
