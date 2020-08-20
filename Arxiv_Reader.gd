@@ -187,7 +187,6 @@ func _on_HTTPRequest_request_completed(_result, _response_code, _headers, body):
 	parseArxiv(body,true)
 	
 	if $Background/ButtonList/filter/filterC.pressed:
-		#var keywords = ['Space Debris','occultation','FRB','OSETI','SETI','VERITAS','MAGIC','Breakthrough','Intellegent Life','Gamma-Ray Burst','Nebula','HESS','Pulsar','GRB','Radio Burst']
 		var keywords = []
 		var listNum = filterListNode.get_item_count()
 		for i in range(listNum):
