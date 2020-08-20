@@ -9,6 +9,8 @@ var curIndex = 0
 onready var treeNode = $Background/ButtonList/ArxivHTree
 onready var filterListNode = get_node("Background/ButtonList/FilterList")
 
+signal ADSFinished
+
 func getStoredActiveArxivHeader():
 	var loadHeaderF = File.new()
 	# read the data in
@@ -185,6 +187,7 @@ func _on_HTTPRequest_request_completed(_result, _response_code, _headers, body):
 	parseArxiv(body,true)
 	
 	if $Background/ButtonList/filter/filterC.pressed:
+		#var keywords = ['Space Debris','occultation','FRB','OSETI','SETI','VERITAS','MAGIC','Breakthrough','Intellegent Life','Gamma-Ray Burst','Nebula','HESS','Pulsar','GRB','Radio Burst']
 		var keywords = []
 		var listNum = filterListNode.get_item_count()
 		for i in range(listNum):
@@ -360,7 +363,8 @@ func _on_popupInput_button_up():
 	var idList = stIDA.join(",")
 	var lOS = stIDA.size() + 2
 	$arxivDirect.request("http://export.arxiv.org/api/query?id_list=" + idList + "&start=0&max_results=" + str(lOS))
-
+	if not $ArxivLookup.visible:
+		$ArxivLookup.show()
 
 func _on_arxivDirect_request_completed(_result,_response_code, _headers, body):
 	$Background/ListOfTitles.clear()
@@ -380,6 +384,9 @@ func _on_arxivDirect_request_completed(_result,_response_code, _headers, body):
 	
 	curIndex = 0
 	$Background/OutputContainer/CheckRow/CheckBox.pressed = false
+	
+	if $ArxivLookup.visible:
+		$ArxivLookup.hide()
 
 
 func _on_DeleteFilter_button_up():
@@ -437,3 +444,88 @@ func _on_ArxivHTree_item_selected():
 	saveDataBase.store_string(to_json(textStrings))
 	saveDataBase.close()
 	
+
+
+func _on_ADSClose_button_up():
+	if $ADSPopup.is_visible():
+		$ADSPopup.hide()
+
+
+func _on_submitads_button_up():
+	if $ADSPopup.is_visible():
+		$ADSPopup.hide()
+	var apiKey = $ADSPopup/Window/KeyInput/Key.text
+	if apiKey == "":
+		$ADSWarning.show()
+		return
+	
+	var saveKey = File.new()
+	saveKey.open("adsKey.dat", File.WRITE)
+	saveKey.store_string(apiKey)
+	saveKey.close()
+	
+	var allText = $ADSPopup/Window/popupstuff/input.text
+	$ADSPopup.hide()
+	var idArrStr = allText.split("\n",false)
+	var header = "Authorization: Bearer:" + apiKey
+	
+	$Background/ListOfTitles.clear()
+	title_arr =  []
+	desc_arr  =  []
+	link_arr  =  []
+	check_arr = []
+	curIndex = 0
+	$ADSLookup.show()
+	yield(adsRequestWrapper(idArrStr,header),"completed")
+	$ADSLookup.hide()
+	check_arr = []
+	for i in title_arr:
+		check_arr.append(false)
+		$Background/ListOfTitles.add_item(i,null,true)
+	
+	curIndex = 0
+	$Background/OutputContainer/CheckRow/CheckBox.pressed = false
+
+var adsIsFinished = []
+func adsRequestWrapper(idArr,header):
+	adsIsFinished = []
+	for idStr in idArr:
+		var request = 'https://api.adsabs.harvard.edu/v1/search/query?q=bibcode%3A'+ idStr +'&fl=title,abstract,bibcode'
+		$ADSRequest.request(request,[header])
+		while true:
+			yield(get_tree().create_timer(1.0), "timeout")
+			#print("Finished ADS Requests : ",adsIsFinished)
+			var finished = false
+			if idStr in adsIsFinished:
+				finished = true
+			if finished:
+				break
+			
+	print("ADS Finished")
+
+func _on_ADSRequest_request_completed(result, response_code, headers, body):
+	
+	#lets parse this body content
+	body = body.get_string_from_ascii()
+	var parsedADS = JSON.parse(body)
+	parsedADS = parsedADS.result
+	
+	var curRes = parsedADS['response']['docs'][0]
+	title_arr.append(curRes['title'][0])
+	desc_arr.append(curRes['abstract'])
+	link_arr.append('https://ui.adsabs.harvard.edu/link_gateway/' + curRes['bibcode'] + '/PUB_PDF')
+	adsIsFinished.append(curRes['bibcode'])
+
+
+func _on_OpenADS_button_up():
+	var loadKey = File.new()
+	loadKey.open("adsKey.dat", File.READ)
+	var apiKey = loadKey.get_as_text()
+	loadKey.close()
+	
+	if apiKey != "":
+		$ADSPopup/Window/KeyInput/Key.text = apiKey
+	else:
+		$ADSPopup/Window/KeyInput/Key.text = ""
+	$ADSPopup/Window/popupstuff/input.text = ""
+	$ADSPopup.popup()
